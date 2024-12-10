@@ -78,14 +78,14 @@ def cycle():
         profile = profiles[0]
         if order.order_type == 1: # LONG
             pnl = longPnL(order, price)
-            Order.objects.filter(id=order.id).update(state=4) # CLOSED STATE
+            Order.objects.filter(id=order.id).update(state=4, close_price=price) # CLOSED STATE
 
             profile.balance += order.amount + pnl
             profile.save()
 
         if order.order_type == 2: # SHORT
             pnl = shortPnL(order, price)
-            Order.objects.filter(id=order.id).update(state=4) # CLOSED STATE
+            Order.objects.filter(id=order.id).update(state=4, close_price=price) # CLOSED STATE
 
             profile.balance += order.amount + pnl
             profile.save()

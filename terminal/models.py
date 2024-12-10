@@ -8,6 +8,7 @@ class Order(models.Model):
     state = models.SmallIntegerField()
     amount = models.FloatField()
     entry_price = models.FloatField()
+    close_price = models.FloatField(default=0)
     leverage = models.SmallIntegerField()
     take_profit = models.FloatField()
     stop_loss = models.FloatField()
