@@ -17,7 +17,7 @@ class OrderViewSet(APIView):
         if not request.user.is_authenticated:
             return Response(status=401)
 
-        queryset = Order.objects.filter(user=request.user).order_by('-id')
+        queryset = Order.objects.filter(user=request.user).order_by('-id')[:10]
         serializer_for_queryset = OrderSerializer(
             instance=queryset, # Передаём набор записей
             many=True
