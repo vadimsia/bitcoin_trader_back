@@ -41,6 +41,7 @@ class GetBalanceViewSet(APIView):
             return Response(status=501)
         
         UserProfile.objects.filter(user=request.user).update(balance=100)
+        return Response()
 
 class LogoutViewSet(APIView):
     def get(self, request):
