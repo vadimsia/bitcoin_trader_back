@@ -10,9 +10,13 @@ from terminal.models import Order
 from usermanager.models import UserProfile
 
 def get_price():
-    response = requests.get('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT')
-    price = response.json()['price']
-    return float(price)
+    while True:
+        try:
+            response = requests.get('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT', timeout=10)
+            price = response.json()['price']
+            return float(price)
+        except:
+            pass
 
 def longLiquidation(order: Order) -> float:
     percent = 100 / order.leverage / 100
