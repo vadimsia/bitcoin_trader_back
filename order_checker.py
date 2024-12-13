@@ -62,15 +62,15 @@ def cycle():
             elif order.stop_loss != 0 and price <= order.stop_loss:
                 Order.objects.filter(id=order.id).update(state=3) # TO BE CLOSED STATE
             elif price <= longLiquidation(order):
-                Order.objects.filter(id=order.id).update(state=4) # CLOSED STATE
+                Order.objects.filter(id=order.id).update(state=4, close_price=price) # CLOSED STATE
 
         if order.order_type == 2: # SHORT
             if order.take_profit != 0 and price <= order.take_profit:
                 Order.objects.filter(id=order.id).update(state=3) # TO BE CLOSED STATE
             elif order.stop_loss != 0 and price >= order.stop_loss:
                 Order.objects.filter(id=order.id).update(state=3) # TO BE CLOSED STATE
-            elif price <= longLiquidation(order):
-                Order.objects.filter(id=order.id).update(state=4) # CLOSED STATE
+            elif price >= shortLiquidation(order):
+                Order.objects.filter(id=order.id).update(state=4, close_price=price) # CLOSED STATE
 
     to_be_closed = Order.objects.filter(state=3) # TO BE CLOSED STATE
 
